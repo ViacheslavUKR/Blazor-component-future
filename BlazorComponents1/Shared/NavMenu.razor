@@ -1,0 +1,89 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">BlazorComponents1</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<style>
+    [menu-tooltip]:before {
+        position: absolute;
+        content: attr(menu-tooltip);
+        opacity: 0;
+        padding: 10px;
+        border-radius: 10px;
+        transition: all 0.15s ease;
+    }
+
+    [menu-tooltip]:hover:before {
+        opacity: 1;
+        background-color:darkblue;
+        margin-top: 30px;
+        margin-left: -60px;
+    }
+
+    [menu-tooltip]:not([menu-tooltip-persistent]):before {
+        pointer-events: none;
+    }
+
+</style>
+
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Events">
+                <image src="Images/Up.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>
+                <div menu-tooltip="Receive data from component">Events</div>
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Binding">
+                <image src="Images/Down.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>
+                <div menu-tooltip="Pass parameters to component">Binding</div>
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Ref">
+                <image src="Images/Right.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>
+                <div menu-tooltip="Going inside component">Ref</div>
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="List">
+                <image src="Images/List.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>
+                <div menu-tooltip="Editable list with key">List</div>
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

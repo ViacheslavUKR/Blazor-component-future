@@ -1,0 +1,22 @@
+﻿@namespace BlazorComponents1.Pages
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+    <div style="font-weight:bold">Component4</div>
+
+
+    <p><input @bind="@testString" /></p>
+
+</div>
+
+@code {
+
+    public string testString;
+
+    public Task TestMethod(string valueToDisplay)
+    {
+        testString = valueToDisplay;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+}

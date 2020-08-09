@@ -1,0 +1,27 @@
+﻿@namespace BlazorComponents1.Pages
+@page "/Ref"
+
+<p>@toDisplay</p>
+<br />
+<button class="btn btn-primary" style="width:250px" @onclick="async () => await WriteMethod()">Write to component</button>
+<button class="btn btn-primary" style="width:250px" @onclick="async () => await ReadMethod()">Read from component</button>
+<br /><br />
+<Component4 @ref="cmp"></Component4>
+
+
+@code {
+
+    Component4 cmp;
+    string toDisplay;
+
+    async Task ReadMethod()
+    {
+        toDisplay = cmp.testString;
+    }
+
+    async Task WriteMethod()
+    {
+        await cmp.TestMethod(Program.RND.Next().ToString());
+
+    }
+}

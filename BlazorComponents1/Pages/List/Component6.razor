@@ -1,0 +1,35 @@
+﻿@namespace BlazorComponents1.Pages
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+    <div style="font-weight:bold;cursor:pointer" @onclick="@(()=>openForEdit=!openForEdit)">Component6</div>
+    @if (Item != null)
+    {
+        <div>key @Item.int1</div>
+        if (openForEdit)
+        {
+            <input @bind-value="@Item.str1" @bind-value:event="oninput" @onkeyup="@((e)=>@KeyUp(e))" />
+        }
+        else
+        {
+            <div>val @Item.str1</div>
+        }
+
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public EventData Item { get; set; }
+
+    bool openForEdit = false;
+
+    void KeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            openForEdit = false;
+            StateHasChanged();
+        }
+    }
+}

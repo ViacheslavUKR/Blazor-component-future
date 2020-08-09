@@ -1,0 +1,30 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.Extensions.Logging
+@inject ILogger<Component3> ilogger
+
+<div style="border: 1px solid; background-color:gainsboro; padding: 5px;">
+    <div style="font-weight:bold">Component3 (component parameter bind by reserved event's name)</div>
+
+    <button class="btn btn-primary" @onclick="@( async () => await Value3Changed.InvokeAsync(Program.RND.Next().ToString()))">
+        Reset Value3
+    </button>
+
+    <p>@Value3</p>
+</div>
+
+@code {
+
+    [Parameter]
+    public EventCallback<string> Value3Changed { get; set; }
+
+    [Parameter]
+    public string Value3 { get; set; }
+
+
+    protected override Task OnParametersSetAsync()
+    {
+        ilogger.LogInformation($"Value3={Value3}");
+        return base.OnParametersSetAsync();
+    }
+
+}

@@ -1,0 +1,24 @@
+﻿@namespace BlazorComponents1.Pages
+@page "/List"
+
+<Component5 @key="@tempid" itemKey="@tempid" OnItemSubmit="@(async (item) => await insertNewItem(item))"></Component5>
+<br />
+@foreach (EventData item in items)
+{
+    <Component6 Item="item"></Component6>
+}
+
+@code {
+
+    List<EventData> items = new List<EventData>();
+    int tempid = Program.RND.Next();
+
+
+    Task insertNewItem(EventData newItem)
+    {
+        items.Add(newItem);
+        tempid = Program.RND.Next();
+        return Task.CompletedTask;
+    }
+
+}

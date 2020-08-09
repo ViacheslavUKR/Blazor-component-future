@@ -1,0 +1,31 @@
+﻿@namespace BlazorComponents1.Pages
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+    <div style="font-weight:bold">Component1</div>
+
+    <button class="btn btn-primary" style="width:250px" @onclick="@( async () => await Event1.InvokeAsync(Program.RND.Next().ToString()))">Raise event with simple data</button>
+    <br /><br />
+    <button class="btn btn-primary" style="width:250px" @onclick="@( async () => await PrepComplexEvent())">Raise event with complex data</button>
+</div>
+
+@code {
+
+    [Parameter]
+    public EventCallback<string> Event1 { get; set; }
+
+    [Parameter]
+    public EventCallback<EventData> Event2 { get; set; }
+
+    async Task PrepComplexEvent()
+    {
+        var obj = new EventData()
+        {
+            int1 = Program.RND.Next(),
+            str1 = string.Format("{0:X2}", Program.RND.Next())
+
+        };
+        await Event2.InvokeAsync(obj);
+    }
+
+
+}

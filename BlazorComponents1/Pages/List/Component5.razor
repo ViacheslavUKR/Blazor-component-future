@@ -1,0 +1,30 @@
+﻿@namespace BlazorComponents1.Pages
+
+<div style="border:1px solid;background-color: gainsboro;padding: 5px;">
+    <div style="font-weight:bold">Component5</div>
+
+    <div>key @Current.int1 </div>
+    <div>val <input @bind-value="@Current.str1" @bind-value:event="oninput" /></div>
+    <br />
+    <button class="btn btn-primary" @onclick="@(async()=>await OnItemSubmit.InvokeAsync(Current))">Add</button>
+</div>
+
+@code {
+
+    EventData Current = new EventData();
+
+    [Parameter]
+    public EventCallback<EventData> OnItemSubmit { get; set; }
+
+    [Parameter]
+    public int itemKey { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Current.int1 = itemKey;
+    }
+
+
+}
+
+

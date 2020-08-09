@@ -1,0 +1,27 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.Extensions.Logging
+@inject ILogger<Binding> ilogger
+@page "/Binding"
+
+<div style="font-size:20px">Two way to pass parameters to component by binding - with implicit event and with reserved event's name.</div>
+<br />
+
+
+<p>inputValue &nbsp;<input @bind="@inputValue" /></p>
+
+<Component2 @bind-value2="@inputValue" @bind-value2:event="Event2"></Component2>
+<br />
+<Component3 @bind-value3="@inputValue"></Component3>
+
+
+@code {
+
+    string inputValue;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        ilogger.LogInformation($"inputValue={inputValue}");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+}

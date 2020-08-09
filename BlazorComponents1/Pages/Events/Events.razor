@@ -1,0 +1,26 @@
+﻿@namespace BlazorComponents1.Pages
+@page "/Events"
+
+<div style="font-size:20px">Two way to recieve event from component - onplace and by method in code, and two type of data carried by events - simple and complex</div>
+<br />
+<p>From simple  event 1: @event1argument</p>
+<p>From complex event 2: </p>
+
+@if (event2argument != null)
+{
+    <p>val1: @event2argument.str1, val2=@event2argument.int1</p>
+}
+
+<Component1 Event1="event1Delegate" Event2="@((args) => { event2argument = args; })"></Component1>
+
+@code {
+
+    string event1argument;
+    EventData event2argument;
+
+    void event1Delegate(string args)
+    {
+        event1argument = args;
+    }
+
+}
