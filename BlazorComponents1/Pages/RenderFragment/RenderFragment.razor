@@ -1,0 +1,50 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.AspNetCore.Components.Web
+@page "/RenderFragment"
+
+<div style="font-size:20px"><code>RenderFragment</code> demo. You can show, create and open for modification any rendering fragment.</div>
+<br />
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+
+    ClickMe:
+    <button class="btn btn-primary" style="width:100%" @onclick="@((e) => { DataS.Add(e); StateHasChanged(); })"></button>
+
+    <ul>
+        @foreach (MouseEventArgs item in DataS)
+        {
+            @htmlTemplate(item)
+        }
+    </ul>
+</div>
+
+<br />
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+    <button class="btn btn-primary" style="width:200px" @onclick="@(()=>OpenRenderedFragment())">Open</button>
+
+    @RenderedFragment
+
+</div>
+
+@code {
+
+    List<MouseEventArgs> DataS = new List<MouseEventArgs>();
+
+    RenderFragment<MouseEventArgs> htmlTemplate = (x) =>@<li>@x.ClientX, @x.ClientY</li>;
+
+    Microsoft.AspNetCore.Components.RenderFragment RenderedFragment;
+
+    void OpenRenderedFragment()
+    {
+
+        RenderedFragment = new Microsoft.AspNetCore.Components.RenderFragment(x =>
+        {
+            x.OpenComponent<MainLayout>(0); //by reflection you can open and then modify any rendering fragment
+            x.CloseComponent();
+        });
+    }
+
+}
+
+

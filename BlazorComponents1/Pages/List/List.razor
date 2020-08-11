@@ -1,8 +1,13 @@
 ﻿@namespace BlazorComponents1.Pages
 @page "/List"
 
+
+<div style="font-size:20px">Create component list, each component referenced by individual <code>key</code> and can be updated.</div>
+
 <Component5 @key="@tempid" itemKey="@tempid" OnItemSubmit="@(async (item) => await insertNewItem(item))"></Component5>
+
 <br />
+
 @foreach (EventData item in items)
 {
     <Component6 Item="item"></Component6>

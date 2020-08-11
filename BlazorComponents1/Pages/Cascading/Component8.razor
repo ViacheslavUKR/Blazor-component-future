@@ -1,0 +1,15 @@
+﻿@namespace BlazorComponents1.Pages
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+    <div style="font-weight:bold">Component8</div>
+
+    @CascadingPrm
+</div>
+
+
+@code {
+
+    [CascadingParameter(Name = "CascadingPrm")]
+    private int CascadingPrm { get; set; }
+
+}

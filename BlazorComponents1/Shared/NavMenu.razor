@@ -74,10 +74,31 @@
                 <div menu-tooltip="Editable list with key">List</div>
             </NavLink>
         </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="RenderFragment">
+                <image src="Images/RenderFragment.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>RenderFragment
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Template">
+                <image src="Images/Template.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>
+                <div menu-tooltip="Render Fragment inside tepmplate">Template</div>
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Cascading">
+                <image src="Images/Cascade.png" style="width:28px;height:28px"></image>
+                <span style="width:10px" aria-hidden="true"></span>
+                <div menu-tooltip="Render for any components">Cascading</div>
+            </NavLink>
+        </li>
     </ul>
 </div>
 
 @code {
+
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;

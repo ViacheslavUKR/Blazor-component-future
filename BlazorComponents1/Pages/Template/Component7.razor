@@ -1,0 +1,21 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.AspNetCore.Components.Web
+@typeparam ItemType
+
+<ul>
+    @foreach (var item in DataList)
+    {
+        @OneLi(item) 
+    }
+
+</ul>
+
+
+@code { 
+    [Parameter]
+    public RenderFragment<ItemType> OneLi { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<ItemType> DataList { get; set; }
+
+}

@@ -1,0 +1,22 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.AspNetCore.Components.Web
+@page "/Template"
+
+<div style="font-size:20px">Template component demo - keywords <code>Typeparam</code>, <code>Context</code> and using class <code>RenderFragment</code></div>
+
+<div style="border:1px solid; background-color:gainsboro; padding: 5px;">
+    <div style="font-weight:bold">Component7</div>
+
+    ClickMe:
+    <button class="btn btn-primary" style="width:100%" @onclick="@((e) => DataS.Add(e) )"></button>
+
+    <Component7 DataList="DataS" ItemType="MouseEventArgs">
+        <OneLi Context="One">
+            <li>@One.ClientX, @One.ClientY</li>
+        </OneLi>
+    </Component7>
+</div>
+
+@code {
+    List<MouseEventArgs> DataS = new List<MouseEventArgs>();
+}

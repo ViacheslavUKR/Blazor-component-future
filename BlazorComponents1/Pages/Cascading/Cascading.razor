@@ -1,0 +1,38 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.AspNetCore.Components
+@page "/Cascading"
+
+<div style="font-size:20px">This demo  define <code>CascadingValue</code>, create dynamic list of components and each component has been received parameter by <code>CascadingParameter</code></div>
+<br />
+
+<button class="btn btn-primary" @onclick="@(() => {
+                                            CascadingPrm = Program.RND.Next();
+                                            Component8List.Add(CreateComponent8());
+                                            StateHasChanged();
+                                        })"> Add
+</button>
+
+
+<CascadingValue Value="@CascadingPrm" Name="CascadingPrm">
+    @foreach (Microsoft.AspNetCore.Components.RenderFragment item in Component8List)
+    {
+        @item;
+    }
+</CascadingValue>
+
+
+@code {
+
+    int CascadingPrm { get; set; }
+    List<Microsoft.AspNetCore.Components.RenderFragment> Component8List = new List<Microsoft.AspNetCore.Components.RenderFragment>();
+
+    Microsoft.AspNetCore.Components.RenderFragment CreateComponent8() => builder =>
+    {
+        builder.OpenComponent(0, typeof(Component8));
+        builder.CloseComponent();
+    };
+}
+
+
+
+
