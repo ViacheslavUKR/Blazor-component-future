@@ -1,1 +1,1 @@
-http://vb-net/Blazor/Index.htm#ComponentFuture
+http://vb-net.com/Blazor/Index.htm#ComponentFuture
