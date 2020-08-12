@@ -1,0 +1,11 @@
+﻿@namespace BlazorComponents1.Pages
+
+
+<img src="Images/Ukraine.svg" @attributes="@UnexpectedAttributes" />
+
+@code {
+
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> UnexpectedAttributes { get; set; }
+}

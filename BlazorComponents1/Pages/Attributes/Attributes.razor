@@ -1,0 +1,17 @@
+﻿@namespace BlazorComponents1.Pages
+@page "/Attributes"
+
+<div style="font-size:20px">Caprure unexpected attributes by <code>attributes</code> and <code>CaptureUnmatchedValues</code></div>
+<br />
+
+<button class="btn btn-primary"  @onclick="@((e) => {width=width+10;  height= (int) ((float)1114/1600 * width); })">+</button>
+<button class="btn btn-primary"  @onclick="@((e) => {width=width-10;  height= (int) ((float)1114/1600 * width); })">-</button>
+<br /><br />
+
+<Component9 width="@width" heigth="@height"></Component9>
+
+@code {
+
+    int width = 200;
+    int height = 0;
+}
