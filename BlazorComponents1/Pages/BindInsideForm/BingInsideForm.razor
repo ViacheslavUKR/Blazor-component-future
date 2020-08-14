@@ -1,0 +1,86 @@
+﻿@namespace BlazorComponents1.Pages
+@using Microsoft.Extensions.Logging;
+@page "/BingInsideForm"
+@inject ILogger<BingInsideForm> Log
+
+<div style="font-size:20px;margin:30px">
+    Blazor containes 6 builting components
+    <span class="text-primary">
+        InputText
+    </span>,
+    <span class="text-primary">
+        InputTextArea
+    </span>,
+    <span class="text-primary">
+        InputSelect&lt;TValue&gt;
+    </span>,
+    <span class="text-primary">
+        InputNumber&lt;TValue&gt;
+    </span>,
+    <span class="text-primary">
+        InputCheckbox
+    </span>,
+    <span class="text-primary">
+        InputDate&lt;TValue&gt;
+    </span>
+    used inside <code>EditForm</code>.
+</div>
+
+<div style="font-size:20px;margin:30px">
+    <span class="text-primary">1.</span>They can be binding by <code>@@bind-Value</code> and <code>Model</code>.
+</div>
+
+
+<EditForm Model="Val1">
+    <InputNumber @bind-Value="@Val1.int1"></InputNumber>
+</EditForm>
+You select: @Val1.int1
+
+
+<div style="font-size:20px;margin:30px">
+    <span class="text-primary">2.</span>They can be binding by <code>@@bind-Value</code>, <code>@@bind-Value:event</code> and <code>Model</code>.
+</div>
+
+<EditForm Model="Val2">
+    <InputNumber @bind-Value="Val2.int1" @bind-Value:event="@((x)=>BlazorEvent1(x))"></InputNumber>
+</EditForm>
+You select: @Val2.int1
+
+
+<div style="font-size:20px;margin:30px">
+    <span class="text-primary">3.</span>They can be binding by <code>@@bind-Value</code>, <code>TValue</code> and <code>Model</code>. And show how to use <code>Context</code>.
+</div>
+
+<EditForm Model="Val3" Context="SubmitContext" >
+    <InputNumber TValue="int" @bind-Value="@Val3.int1"></InputNumber>
+    <button type="submit" class="btn btn-primary" @onclick="@(() => BlazorEvent2(SubmitContext,1))">1</button>
+    <button type="submit" class="btn btn-primary" @onclick="@(() => BlazorEvent2(SubmitContext,2))">2</button>
+</EditForm>
+You select: @Val3.int1<br />
+You press: @N
+
+<div style="font-size:20px;margin:30px">
+    <span class="text-primary">4.</span> Also <code>EditForm</code> can contains <code>EditContex</code>, <code>OnValidSubmit</code>, <code>OnSubmit</code> and various type of form validators.
+</div>
+
+
+@code {
+    EventData Val1 = new EventData();
+    EventData Val2 = new EventData();
+    EventData Val3 = new EventData();
+    int N;
+
+    EventCallback<ChangeEventArgs> BlazorEvent1 { get; set; }
+
+    void BlazorEvent2(EditContext x, int n)
+    {
+        N = n;
+        Log.LogInformation(((EventData) x.Model).int1.ToString());
+    }
+
+
+
+
+
+
+}

@@ -1,0 +1,111 @@
+﻿@namespace BlazorComponents1.Pages
+@page "/BindHtml"
+@using System.Globalization
+
+<div style="font-size:20px"><span class="text-primary">1.</span>Bindging Html element <span class="text-primary">&lt;select&gt;</span></div>
+
+<div style="font-size:20px;margin:30px">1. by <code>@@onchange</code> event.</div>
+
+<select @onchange="htmlEvent1">
+    <option>(No)</option>
+    @foreach (EventData oneUser in allData)
+    {
+        <option value="@oneUser.int1">@oneUser.str1</option>
+    }
+</select>
+<br />
+You select: @Sel1
+
+<div style="font-size:20px;margin:30px">2. by <code>@@bind</code>.</div>
+
+<select @bind="Sel2">
+    <option>(No)</option>
+    @foreach (EventData oneUser in allData)
+    {
+        <option value="@oneUser.int1">@oneUser.str1</option>
+    }
+</select>
+<br />
+You select: @Sel2
+
+<div style="font-size:20px;margin:30px">3. by <code>@@bind-value</code> + <code>@@bind-value:event</code> + <code>@@onchange</code>.</div>
+
+<select @bind-value=Sel3 @bind-value:event="htmlEvent2" @onchange="(e)=> htmlEvent2(e)">
+    <option>(No)</option>
+    @foreach (EventData oneUser in allData)
+    {
+        <option value="@oneUser.int1">@oneUser.str1</option>
+    }
+</select>
+<br />
+You select: @Sel3
+
+<hr />
+
+<div style="font-size:20px;"><span class="text-primary">2.</span>Binging Html element <span class="text-primary">&lt;input type=text&gt;</span></div>
+
+<div style="font-size:20px;margin:30px">1. by <code>@@bind-value</code> + <code>@@bind-value:format</code>.</div>
+
+<input @bind-value=DateOfBirth @bind-value:format="yyyy-MM-dd" placeholder="2020-01-01" />
+<br />
+You select: @DateOfBirth?.ToString("MMMM dd, yyyy")
+
+<div style="font-size:20px;margin:30px">2. by <code>@@bind-value</code> + <code>@@bind-value:culture</code>.</div>
+<input @bind-value=DateOfBirth @bind-value:culture=Ukraine placeholder="2020-01-01" />
+<br />
+You select: @DateOfBirth?.ToString("MMMM dd, yyyy")
+
+<hr />
+
+<div style="font-size:20px;"><span class="text-primary">3.</span>Binding  Html element <span class="text-primary">&lt;input type=radio&gt;</span> (with group) by <code>@@onchange</code> event, <code>checked</code> and <code>value</code> attributes.</div>
+<div>
+
+    @foreach (EventData oneUser in allData)
+    {
+        <input type="radio" value="@oneUser.int1" name="group1" checked="@(SelectedValue.Equals(Value))" @onchange="OnChange" />
+    }
+    You select:@Value
+
+</div>
+
+<hr />
+
+<div style="font-size:20px;"><span class="text-primary">4.</span>Other Html element <span class="text-primary">&lt;input type=button&gt;</span>,  <span class="text-primary">&lt;textarea&gt;</span>, <span class="text-primary">&lt;input type=number&gt;</span>, <span class="text-primary">&lt;input type=checkbox&gt;</span>,  <span class="text-primary">&lt;input type=date&gt;</span>, <span class="text-primary">&lt;input type=radio&gt;</span> (without group)and attributes - can processing by the same way as above.</div>
+
+
+
+@code {
+
+    private DateTime? DateOfBirth;
+
+    List<EventData> allData = new List<EventData> {
+            new EventData { int1 = 1, str1 = "One" },
+            new EventData { int1 = 2, str1 = "Two" },
+            new EventData { int1 = 3, str1 = "Three" }
+            };
+
+    string Sel1; string Sel2;
+    string Sel3;
+
+    private CultureInfo Ukraine = CultureInfo.GetCultureInfo("uk-UA");
+
+
+    protected void htmlEvent1(ChangeEventArgs e)
+    {
+        Sel1 = e.Value.ToString();
+    }
+
+    EventCallback htmlEvent2(ChangeEventArgs e)
+    {
+        Sel3 = e.Value.ToString();
+        return new EventCallback();
+    }
+
+    int SelectedValue { get; set; }
+    int Value { get; set; }
+    void OnChange(ChangeEventArgs e)
+    {
+        Value = int.Parse(e.Value.ToString());
+    }
+
+}
